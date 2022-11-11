@@ -1,10 +1,9 @@
-# Vue 3 + TypeScript + Vite
-
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## technology stack
+- Vue3 + TypeScript + Vite
+- pinia(a store library for Vue)
+- tailwind(A utility-first CSS framework packed)
+- npm(package management)
+- more to be considered...
 
 ## system
 This is a question answer system😊😊
