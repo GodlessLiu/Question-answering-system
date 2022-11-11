@@ -10,62 +10,60 @@
 <script setup lang='ts'>
 import { useAnswerStore } from '@/store/index'
 import { StyleValue } from 'vue';
+import {colorStyle} from '@/configs/color'
+import {getLengthWithoutEmpty} from '@/main_ts/index'
 
 const answerStore = useAnswerStore()
 const userAnswer = answerStore.userAnswer
 
-function computeAnswerLength(question:Question){
-    let l=0;
+function computeAnswerLength(question: Question) {
     let index = -1
-    for(let j = 0; j < userAnswer.length;j++){
-        if(userAnswer[j].id === question.id){
-            l = userAnswer[j].answers.length
+    for (let j = 0; j < userAnswer.length; j++) {
+        if (userAnswer[j].id === question.id) {
             index = j
         }
     }
-    for(const i of userAnswer[index].answers){
-        if(i==='') l--
-    }
+    const l = getLengthWithoutEmpty(userAnswer[index].answers as string[])
     return l
 
 
 }
 
 // 这里的i是问题
-const ifExists = (i:Question) => {
+const ifExists = (i: Question):[boolean,number] => {
     for (let j = 0; j < userAnswer.length; j++) {
         if (userAnswer[j].id === i.id) {
-            if(i.type != 'blank'){
-                return [true,1]
-            }else{
-                const userAnswerLength =computeAnswerLength(i)  
-                if(i.answers.length > userAnswerLength){
-                    return userAnswerLength === 0? [true,0] : [true,.5]
+            if (i.type != 'blank') {
+               return userAnswer[j].answers.length === 0?[true,0]:[true,1]
+            } else {
+                const userAnswerLength = computeAnswerLength(i)
+                if (i.answers.length > userAnswerLength) {
+                    return userAnswerLength === 0 ? [true, 0] : [true, .5]
                 }
-                return [true,1]
+                return [true, 1]
             }
         }
     }
-    return [false,0]
+    return [false, 0]
+}
+
+function getColorStyleByLevel(level: number) {
+    switch (level) {
+        case 1:
+            return colorStyle.full
+        case 0.5:
+            return colorStyle.half
+        case 0:
+            return colorStyle.empty
+        default:
+        return colorStyle.empty
+    }
 }
 
 const getStyle = (i: Question): StyleValue => {
-    const [flag,level] = ifExists(i)
+    const [flag, level] = ifExists(i)
     if (flag) {
-        switch(level){
-            case 1:
-                return {
-                    backgroundColor:'rgba(0,125,0,1)'
-                }
-            case 0.5:
-                return {
-                    backgroundColor:'rgba(0,125,0,.5)'
-                }
-            case 0:
-                return {
-                    backgroundColor:'white'
-                }
-        }
+        return getColorStyleByLevel(level)
     }
     return {
         backgroundColor: 'white',

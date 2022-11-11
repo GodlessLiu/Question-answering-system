@@ -60,6 +60,12 @@ export const questions:Question[] = [
         score:2,
         question: "What is the name of the project?",
         answers:["",""]
+    },{
+        id:'11',
+        type:'blank',
+        score:2,
+        question: "What is the name of the project?",
+        answers:[""]
     }
 
 

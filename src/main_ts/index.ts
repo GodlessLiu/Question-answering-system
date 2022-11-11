@@ -5,3 +5,11 @@ const enumNumber = ['一','二','三','四','五','六','七','八','九','十',
 export function numberConversion(n: number) {
     return enumNumber[n]
 }
+
+export function getLengthWithoutEmpty(strs:string[]){
+    let l = strs.length
+    for (const i of strs) {
+        if (i === '') l--
+    }
+    return l
+}
