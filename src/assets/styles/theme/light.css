@@ -1,0 +1,11 @@
+.light{
+    --background-color: #fff;
+    --text-color:#000;
+    --text-size: 12px;
+}
+
+.dark {
+    --background-color: #000;
+    --text-color:#fff;
+    --text-size: 12px;       
+}
