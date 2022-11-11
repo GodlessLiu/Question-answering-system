@@ -20,12 +20,12 @@ export const useAnswerStore = defineStore('userAnswer', {
           break;
         }
       }
-      // console.log(flag, index);
 
       return [flag, index];
     },
     addUserAnswer(answer: myAnswersType) {
       const [flag, index] = this.judgeIfExists(answer)
+      
       if (flag) {
         this.userAnswer[index] = answer;
       } else {

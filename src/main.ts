@@ -27,7 +27,6 @@ const piniaPlugin = (options: Options) => {
     return (context: PiniaPluginContext) => {
         const { store } = context
         const data = getStorage(`${options?.key ?? __piniaKey__}-${store.$id}`)
-        console.log(data);
         
         store.$subscribe(() => {
             // store.$state是一个 proxy 对象 要通过 toRaw() 转换成 原始对象

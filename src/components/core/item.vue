@@ -35,7 +35,7 @@
                 <div class="flex flex-row justify-start h-full h-8 mb-2" v-for=" j,index in props.ques.answers">
                     <div class="break-normal align-middle leading-8">第{{numberConversion(index)}}空 </div>
                     <div class="flex-grow border-b-2">
-                        <a-input v-model:value="blankValue[index]" @change="blankChange($event,index)" :bordered="false"
+                        <a-input v-model:value="blankValue[index]" @change="blankChange" :bordered="false"
                             :placeholder="`请填写答案`" />
                     </div>
                 </div>
@@ -103,10 +103,8 @@ const radioChange = (e: RadioChangeEvent) => {
 }
 
 // 填空
-const result: string[] = []
-const blankChange = (e: ChangeEvent, index: number) => {
-    result[index] = e.target.value!
-    AnswerStore.addUserAnswer(handlerAnswer(result))
+const blankChange = () => {      
+    AnswerStore.addUserAnswer(handlerAnswer(toRaw(blankValue.value)))
 }
 
 // 判断
@@ -137,7 +135,6 @@ function initData(flag:boolean,usedAnswer:myAnswersType[],index: number) {
                 judgeValue.value = usedAnswer[index].answers as string
                 break;
             case 'radio':
-                console.log(index, usedAnswer);
                 radioValue.value = usedAnswer[index].answers as string
                 break;
             case 'checkbox':
@@ -159,7 +156,3 @@ onMounted(() => {
 })
 
 </script>
-
-<style lang="css" scoped>
-
-</style>

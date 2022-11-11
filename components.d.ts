@@ -17,5 +17,6 @@ declare module '@vue/runtime-core' {
     ATag: typeof import('ant-design-vue/es')['Tag']
     Card: typeof import('./src/components/card.vue')['default']
     Item: typeof import('./src/components/core/item.vue')['default']
+    Submit: typeof import('./src/components/core/submit.vue')['default']
   }
 }
