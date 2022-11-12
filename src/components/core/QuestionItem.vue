@@ -62,7 +62,6 @@
 import { numberConversion } from '@/main_ts/index';
 import { CheckboxValueType } from 'ant-design-vue/es/checkbox/interface';
 import { RadioChangeEvent } from 'ant-design-vue/es/radio';
-import { ChangeEvent } from 'ant-design-vue/es/_util/EventInterface';
 import { useAnswerStore } from '@/store/index'
 
 const AnswerStore = useAnswerStore()

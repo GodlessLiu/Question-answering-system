@@ -13,3 +13,11 @@ export function getLengthWithoutEmpty(strs:string[]){
     }
     return l
 }
+
+export function formatTime(time:number){
+    let m:string|number  = Math.floor(time/60)
+    m = m<10?'0'+m:m
+    let s:string|number = time % 60
+    s = s<10?'0'+s:s
+    return m+' 分 '+s+' 秒 '
+}

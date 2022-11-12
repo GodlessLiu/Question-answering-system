@@ -1,14 +1,18 @@
 <template>
-    <div class=" w-60 bg-gray-300">
-        <div class="h-10">
+    <div class="w-60 bg-gray-100">
+        <div class="h-10 relative">
             <!-- TODO -->
-            缩小按钮 | 计时器 
+            <span class="font float-right mr-1 mt-2">{{formatTime(time)}}</span>
         </div>
         <div class=" flex flex-row flex-wrap">
-            <div class="w-10 text-center leading-10 border-2 h-10 box-border bg-green-500" :style="getStyle(i)"
-            v-for="i,index in props.data">
-            <a :href="`#question-${index+1}`" class="text-black">{{index+1}}</a>
+            <div class="w-10 text-center leading-10 border-2 h-10 box-border bg-green-500 hover:scale-110 duration-500"
+                :style="getStyle(i)" v-for="i,index in props.data">
+                <a :href="`#question-${index+1}`" class="text-black h-full w-full block">{{index+1}}</a>
+            </div>
+
         </div>
+        <div class="flex flex-row justify-center pt-2">
+            <a-button type="primary" @click="submit">提交</a-button>
         </div>
     </div>
 </template>
@@ -16,8 +20,10 @@
 <script setup lang='ts'>
 import { useAnswerStore } from '@/store/index'
 import { StyleValue } from 'vue';
-import {colorStyle} from '@/configs/color'
-import {getLengthWithoutEmpty} from '@/main_ts/index'
+import { colorStyle } from '@/configs/color'
+import { getLengthWithoutEmpty } from '@/main_ts/index'
+import { formatTime } from '@/main_ts/index'
+
 
 const answerStore = useAnswerStore()
 const userAnswer = answerStore.userAnswer
@@ -36,11 +42,11 @@ function computeAnswerLength(question: Question) {
 }
 
 // 这里的i是问题
-const ifExists = (i: Question):[boolean,number] => {
+const ifExists = (i: Question): [boolean, number] => {
     for (let j = 0; j < userAnswer.length; j++) {
         if (userAnswer[j].id === i.id) {
             if (i.type != 'blank') {
-               return userAnswer[j].answers.length === 0?[true,0]:[true,1]
+                return userAnswer[j].answers.length === 0 ? [true, 0] : [true, 1]
             } else {
                 const userAnswerLength = computeAnswerLength(i)
                 if (i.answers.length > userAnswerLength) {
@@ -62,7 +68,7 @@ function getColorStyleByLevel(level: number) {
         case 0:
             return colorStyle.empty
         default:
-        return colorStyle.empty
+            return colorStyle.empty
     }
 }
 
@@ -77,13 +83,45 @@ const getStyle = (i: Question): StyleValue => {
 }
 
 type propsType = {
-    data: Question[]
+    data: Question[],
+    time: number
 }
 
 const props = defineProps<propsType>()
+const time = ref<number>(props.time)
+
+
+const emits = defineEmits(["timeOver"])
+// 计时器
+let timeStart:any;
+
+onMounted(() => {
+    timeStart = setInterval(() => {
+        if(time.value>0){
+            time.value--
+        }else{
+            clearInterval(timeStart)
+            emits('timeOver')
+
+        }
+}, 1000)
+})
+
+onBeforeUnmount(()=>{
+    clearInterval(timeStart)
+})
+
+const submit = ()=>{
+    emits('timeOver')
+}
 
 </script>
 
-<style lang="" scoped>
-
+<style lang="css" scoped>
+.font{
+    background-image: linear-gradient(to right, orange, purple);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 18px;
+}
 </style>
