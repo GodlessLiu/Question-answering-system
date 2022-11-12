@@ -2,12 +2,12 @@
     <div class=" w-60 bg-gray-300">
         <div class="h-10">
             <!-- TODO -->
-            缩小按钮 | 计时器
+            缩小按钮 | 计时器 
         </div>
         <div class=" flex flex-row flex-wrap">
             <div class="w-10 text-center leading-10 border-2 h-10 box-border bg-green-500" :style="getStyle(i)"
-            v-for="i in props.data">
-            {{i.id}}
+            v-for="i,index in props.data">
+            <a :href="`#question-${index+1}`" class="text-black">{{index+1}}</a>
         </div>
         </div>
     </div>

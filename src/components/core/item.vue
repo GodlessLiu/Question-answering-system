@@ -1,7 +1,7 @@
 <template>
     <div class="item mb-2">
         <!-- 单选 -->
-        <div class="radio" v-if="props.ques.type === 'radio'">
+        <div class="radio" :id="`question-${props.index}`" v-if="props.ques.type === 'radio'">
             <p class="questions break-words">{{`${props.index}、`}}<a-tag color="blue">单选</a-tag><span
                     class="text-xs">{{`(${props.ques.score}分)`}}</span> ​{{props.ques.question}}</p>
             <div class="choices ml-5">
@@ -11,7 +11,7 @@
             </div>
         </div>
         <!-- 多选 -->
-        <div class="checkbox" v-if="props.ques.type === 'checkbox'">
+        <div class="checkbox" :id="`question-${props.index}`" v-if="props.ques.type === 'checkbox'">
             <p class="questions break-words">{{`${props.index}、`}}<a-tag color="blue">多选</a-tag><span
                     class="text-xs">{{`(${props.ques.score}分)`}}</span> ​{{props.ques.question}}</p>
             <div class="choices ml-5">
@@ -27,7 +27,7 @@
             </div>
         </div>
         <!-- 填空 -->
-        <div class="blank" v-if="props.ques.type === 'blank'">
+        <div class="blank" :id="`question-${props.index}`" v-if="props.ques.type === 'blank'">
             <p class="questions break-words">{{`${props.index}、`}}<a-tag color="blue">填空</a-tag>
                 <span class="text-xs">{{`(${props.ques.score}分)`}}</span> {{props.ques.question}}
             </p>
@@ -42,7 +42,7 @@
             </div>
         </div>
         <!-- 判断 -->
-        <div class="judge" v-if="props.ques.type === 'judge'">
+        <div class="judge" :id="`question-${props.index}`" v-if="props.ques.type === 'judge'">
             <p class="questions break-words">{{`${props.index}、`}}<a-tag color="blue">判断</a-tag>
                 <span class="text-xs">{{`(${props.ques.score}分)`}}</span> {{props.ques.question}}
             </p>
